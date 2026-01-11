@@ -7,8 +7,8 @@ namespace Biblioteka.Models
     public class Book
     {
         public int Id { get; set; }
-        [Required, StringLength(150)]
-
+        [Required(ErrorMessage = "Tytul jest wymagany")]
+        [StringLength(200)]
         public string Title { get; set; }
         public string Author { get; set; }
         public string ISBN { get; set; }

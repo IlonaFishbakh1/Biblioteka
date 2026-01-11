@@ -4,16 +4,19 @@ using Biblioteka.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace WebApplication1.Data.Migrations
+namespace Biblioteka.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260111015947_InitAllTables")]
+    partial class InitAllTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +144,7 @@ namespace WebApplication1.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -159,7 +162,7 @@ namespace WebApplication1.Data.Migrations
                     b.Property<DateTime>("Hire_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LibraryId")
+                    b.Property<int?>("LibraryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -201,19 +204,19 @@ namespace WebApplication1.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookCopyId")
+                    b.Property<int?>("BookCopyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CopyId")
+                    b.Property<int?>("CopyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmpId")
+                    b.Property<int?>("EmpId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LibraryId")
+                    b.Property<int?>("LibraryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Rent_Date")
@@ -272,13 +275,13 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Biblioteka.Models.Library", "Library")
                         .WithMany("Books")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -291,13 +294,13 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.Book", "Book")
                         .WithMany("Copies")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Biblioteka.Models.Library", "Library")
                         .WithMany("BookCopies")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -310,14 +313,12 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Biblioteka.Models.Library", "Library")
                         .WithMany("Employees")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Address");
 
@@ -329,7 +330,7 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.Address", "Address")
                         .WithMany("Libraries")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -340,25 +341,22 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.BookCopy", "BookCopy")
                         .WithMany("Rents")
                         .HasForeignKey("BookCopyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Biblioteka.Models.Employee", "Employee")
                         .WithMany("Rents")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Biblioteka.Models.Library", "Library")
                         .WithMany("Rents")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Biblioteka.Models.User", "User")
                         .WithMany("Rents")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("BookCopy");
@@ -375,7 +373,7 @@ namespace WebApplication1.Data.Migrations
                     b.HasOne("Biblioteka.Models.Address", "Address")
                         .WithMany("Users")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Address");
