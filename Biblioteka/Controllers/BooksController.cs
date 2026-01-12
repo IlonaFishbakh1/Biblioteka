@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Biblioteka.Data;
 using Biblioteka.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Biblioteka.Controllers
 {
@@ -19,7 +20,7 @@ namespace Biblioteka.Controllers
             _context = context;
         }
 
-        // GET: Books
+        
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Books.Include(b => b.Category).Include(b => b.Library);

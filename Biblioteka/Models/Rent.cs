@@ -14,8 +14,8 @@ namespace Biblioteka.Models
         public Employee? Employee { get; set; }
         public int? CopyId { get; set; }
         public BookCopy? BookCopy { get; set; }
-        
-        
+
+
         public int? LibraryId { get; set; }
         public Library? Library { get; set; }
     }

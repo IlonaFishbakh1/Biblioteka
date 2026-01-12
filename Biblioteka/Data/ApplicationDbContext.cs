@@ -12,10 +12,10 @@ namespace Biblioteka.Data
         }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Library> Libraries { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookCopy> BookCopies { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Rent> Rents { get; set; }
 
@@ -28,35 +28,7 @@ namespace Biblioteka.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            //modelBuilder.Entity<Employee>()
-            //    .HasOne(e => e.Library)
-            //    .WithMany(l => l.Employees)
-            //    .HasForeignKey(e => e.LibraryId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Employee>()
-            //    .HasOne(e => e.Address)
-            //    .WithMany(a => a.Employees)
-            //    .HasForeignKey(e => e.AddressId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Rent>()
-            //    .HasOne(r => r.Employee)
-            //    .WithMany(e => e.Rents)
-            //    .HasForeignKey(r => r.EmpId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Rent>()
-            //    .HasOne(r => r.Library)
-            //    .WithMany(l => l.Rents)
-            //    .HasForeignKey(r => r.LibraryId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Rent>()
-            //    .HasOne(r => r.Library)
-            //    .WithMany(bc => bc.Rents)
-            //    .HasForeignKey(r => r.CopyId)
-            //    .OnDelete(DeleteBehavior.Restrict);
         }
+        public DbSet<Biblioteka.Models.User> User { get; set; } = default!;
     }
 }
