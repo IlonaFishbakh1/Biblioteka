@@ -1,18 +1,19 @@
 ﻿using Biblioteka.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Biblioteka.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
         }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Library> Libraries { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookCopy> BookCopies { get; set; }
@@ -29,6 +30,6 @@ namespace Biblioteka.Data
             }
 
         }
-        public DbSet<Biblioteka.Models.User> User { get; set; } = default!;
+        
     }
 }

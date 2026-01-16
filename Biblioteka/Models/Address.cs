@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteka.Models
 {
@@ -10,9 +11,10 @@ namespace Biblioteka.Models
         public string AddressLine { get; set; }
         public string City { get; set; }
         public string Zipcode { get; set; }
-
+        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
         public ICollection<Library> Libraries { get; set; }
         public ICollection<Employee> Employees { get; set; }
-        public ICollection<User> Users { get; set; }
+        
     }
 }

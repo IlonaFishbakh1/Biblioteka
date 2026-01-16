@@ -20,7 +20,7 @@ namespace Biblioteka.Controllers
             _context = context;
         }
 
-        
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Books.Include(b => b.Category).Include(b => b.Library);
@@ -28,6 +28,7 @@ namespace Biblioteka.Controllers
         }
 
         // GET: Books/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +49,7 @@ namespace Biblioteka.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
@@ -74,6 +76,7 @@ namespace Biblioteka.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -129,6 +132,7 @@ namespace Biblioteka.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

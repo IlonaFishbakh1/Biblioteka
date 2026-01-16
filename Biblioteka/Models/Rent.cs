@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteka.Models
 {
@@ -8,8 +9,8 @@ namespace Biblioteka.Models
         [Required(ErrorMessage = "Data wypozyczenia jest wymagana")]
         public DateTime Rent_Date { get; set; }
         public DateTime? Return_Date { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
         public int? EmpId { get; set; }
         public Employee? Employee { get; set; }
         public int? CopyId { get; set; }
