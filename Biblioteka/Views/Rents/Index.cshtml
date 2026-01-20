@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<Biblioteka.Models.Rent>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Wypożyczenia";
 }
 
-<h1>Index</h1>
+<h1>Wypożyczenia</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-success">Dodaj wypożyczenie</a>
+}
 <table class="table">
     <thead>
         <tr>
@@ -17,9 +18,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Return_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EmpId)
@@ -43,22 +41,24 @@
                 @Html.DisplayFor(modelItem => item.Return_Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                 @(item.Employee != null
+                                 ? item.Employee.Emp_Name + " " + item.Employee.Emp_Surname
+                                  : "-")
             </td>
+             <td>
+                    @(item.BookCopy != null
+                                    ? item.BookCopy.Id + " (" + item.BookCopy.Condition + ")"
+                                    : "-")
+             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpId)
+                @(item.Library != null ? Html.DisplayFor(modelItem => item.Library.Id) : "")
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopyId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Library.Id)
-            </td>
-            <td>
+                @if (User.IsInRole("Admin"))
+            {<td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            </td>}
         </tr>
 }
     </tbody>

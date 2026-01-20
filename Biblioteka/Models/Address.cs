@@ -8,13 +8,11 @@ namespace Biblioteka.Models
         public int Id { get; set; }
 
         [Required]
-        public string AddressLine { get; set; }
-        public string City { get; set; }
-        public string Zipcode { get; set; }
-        public string UserId { get; set; }
-        public IdentityUser User { get; set; }
-        public ICollection<Library> Libraries { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public required string AddressLine { get; set; }
+        public required string City { get; set; }
+        public required string Zipcode { get; set; }
+        public required ICollection<Library> Libraries { get; set; }
+        public required ICollection<Employee> Employees { get; set; }
         
     }
 }

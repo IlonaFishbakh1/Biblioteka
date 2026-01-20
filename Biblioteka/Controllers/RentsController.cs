@@ -29,11 +29,13 @@ namespace Biblioteka.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var rents = _context.Rents
+            var rents = await _context.Rents
+                .Include(r => r.Employee)
+                .Include(r => r.BookCopy)
                 .Include(r => r.Library)
-                .Include(r => r.User);
+                .ToListAsync();
 
-            return View(await rents.ToListAsync());
+            return View(rents);
         }
 
         [Authorize]
@@ -44,7 +46,6 @@ namespace Biblioteka.Controllers
 
             var rent = await _context.Rents
                 .Include(r => r.Library)
-                .Include(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (rent == null)
@@ -67,14 +68,12 @@ namespace Biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                rent.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
                 _context.Add(rent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
             ViewData["LibraryId"] = new SelectList(_context.Libraries, "Id", "Id", rent.LibraryId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", rent.UserId);
             return View(rent);
         }
 
@@ -122,7 +121,6 @@ namespace Biblioteka.Controllers
 
             var rent = await _context.Rents
                 .Include(r => r.Library)
-                .Include(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (rent == null)
@@ -152,4 +150,5 @@ namespace Biblioteka.Controllers
             return _context.Rents.Any(e => e.Id == id);
         }
     }
+   
 }

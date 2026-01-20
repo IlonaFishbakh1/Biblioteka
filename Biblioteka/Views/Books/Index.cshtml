@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<Biblioteka.Models.Book>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Książki";
 }
 
-<h1>Index</h1>
+<h1>Książki</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-success">Dodaj książkę</a>
+}
 <table class="table">
     <thead>
         <tr>
@@ -54,11 +55,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Id)
             </td>
-            <td>
+                @if (User.IsInRole("Admin"))
+           { <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            </td>}
         </tr>
 }
     </tbody>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Biblioteka.Models.Library>
+
+@{
+    ViewData["Title"] = "Biblioteki";
+}
+
+<h1>Biblioteki</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Godziny otwarcia</th>
+            <th>Adres</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Open_Hours</td>
+                <td>@item.Address?.AddressLine</td>
+            </tr>
+        }
+    </tbody>
+</table>
